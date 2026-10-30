@@ -6,6 +6,8 @@ It is a port of the C++20 version, [github.com/ricard1406/myTinySql](https://git
 same statements, same files, same browser page, same output. Every C++ file has a Rust module with the same job,
 so the two can be read side by side. **[docs/cpp-vs-rust.md](docs/cpp-vs-rust.md)** compares them, idea by idea.
 
+Code documentation (rustdoc): https://ricard1406.github.io/myTinySql-rust/
+
 **Installation:** requirements, installing Rust, build and first run are in [INSTALLATION.md](INSTALLATION.md).
 
 **Testing:** how to check, step by step, that everything works is in [TESTING.md](TESTING.md);
@@ -75,11 +77,12 @@ The full description of the statements, the file formats and the web page is in 
 | `tests/data/` | The frozen tables the tests run on |
 | `data/` | The database: `SYSTEM_TABLE` and one `<TABLE>_DATA` file per table |
 | `examples/` | Sample scripts (`insert.sql` adds rows to `data/`) |
-| `web/` | The browser page, the same files as in the C++ version |
+| `web/` | The browser page: the C++ version's files, with its own name and documentation link in `index.html` |
 | `docs/cpp-vs-rust.md` | The comparison of the two versions |
 | `INSTALLATION.md` | Requirements, installing Rust, build, run, troubleshooting |
 | `TESTING.md`, `tests/check_all.sh` | The 13 checks, and the script that runs them |
 | `.github/workflows/ci.yml` | Builds and tests the code on GitHub after every push |
+| `.github/workflows/docs.yml` | Publishes the code documentation on GitHub Pages after every push to `main` |
 | `Cargo.toml`, `rustfmt.toml` | Build settings; formatting (`cargo fmt`) |
 
 | C++ | Rust |

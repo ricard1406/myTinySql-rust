@@ -516,6 +516,9 @@ pub fn table(&self, name: &str) -> SqlResult<&TableSchema>
 The parameter and return types already say much of what `@param`, `@return` and `@throws` say (the
 `SqlResult` *is* the `@throws`), so Rust doc comments tend to be shorter. `#![warn(missing_docs)]` in
 `lib.rs` warns about any public item without a comment, like Doxygen's "undocumented" warnings.
+Both sites are published the same way, by a GitHub Actions workflow after every push to `main`:
+[ricard1406.github.io/myTinySql](https://ricard1406.github.io/myTinySql/) (Doxygen) and
+[ricard1406.github.io/myTinySql-rust](https://ricard1406.github.io/myTinySql-rust/) (rustdoc).
 
 ## 17. Memory safety: tested vs proven
 

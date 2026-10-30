@@ -141,7 +141,9 @@ cargo doc --no-deps --open
 
 It builds the HTML documentation from the `///` comments in `src/` and opens it in the browser
 (the files are in `target/doc/mytinysql/`). `--no-deps` leaves out the documentation of Rust's own
-standard library, which is online at https://doc.rust-lang.org/std/.
+standard library, which is online at https://doc.rust-lang.org/std/. This project's own pages
+are also online, at https://ricard1406.github.io/myTinySql-rust/: the **Code documentation** link of the browser
+page opens them.
 
 ## Troubleshooting
 

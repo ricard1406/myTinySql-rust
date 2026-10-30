@@ -1,0 +1,60 @@
+# Builds the code documentation with `cargo doc` and publishes it on GitHub Pages
+# (https://ricard1406.github.io/myTinySql-rust/) after every push to main.
+# The "Code documentation" link of the browser page opens it.
+name: Code documentation
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # also allows a manual run from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a newer push replaces a waiting one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15  # a normal run takes 1-2 minutes; stop a stuck one instead of waiting 6 hours
+    steps:
+      - uses: actions/checkout@v7
+
+      # GitHub's machines come with rustup; this makes sure Rust is the latest stable version.
+      - name: Install Rust
+        run: rustup update stable && rustup default stable
+
+      - name: Build the documentation
+        run: cargo doc --no-deps
+
+      # cargo doc makes one folder per crate (mytinysql/ for the library) and no front page:
+      # this one opens the library's documentation.
+      - name: Add a front page
+        run: |
+          cat > target/doc/index.html <<'EOF'
+          <!doctype html>
+          <meta charset="utf-8">
+          <title>myTinySQL-rust: code documentation</title>
+          <meta http-equiv="refresh" content="0; url=mytinysql/index.html">
+          <a href="mytinysql/index.html">myTinySQL-rust: code documentation</a>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: target/doc
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

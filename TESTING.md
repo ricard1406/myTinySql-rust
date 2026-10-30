@@ -78,7 +78,7 @@ The rest of this guide is the same checks one by one, with what each one shows a
 | 9 | Documentation | `cargo doc --no-deps` | no warnings | Every public item is documented |
 | 10 | Fresh install | `git clone` + `cargo test` | all `ok` | The project works from a clean copy |
 | 11 | By hand, in a browser | checklist | as described | The web page works for a person |
-| 12 | On GitHub | Actions tab | green check | The code on GitHub builds and passes its tests |
+| 12 | On GitHub | Actions tab | 2 green checks | The code on GitHub builds and passes its tests, and the online documentation is up to date |
 | 13 | Same as C++ | both programs on every script | no difference | The port behaves exactly like the original |
 
 ## How to read this guide
@@ -519,7 +519,8 @@ cargo doc --no-deps 2>&1 | grep -c '^warning'
 
 `src/lib.rs` has `#![warn(missing_docs)]`, so `cargo doc` (and `cargo build`) warn about every public
 item without a `///` comment; rustdoc also warns about a broken link such as `` [`Sesion`] ``. 0 warnings
-means the whole public code is documented. To read the documentation, run `cargo doc --no-deps --open`.
+means the whole public code is documented. To read the documentation, run `cargo doc --no-deps --open`;
+the same pages are online at https://ricard1406.github.io/myTinySql-rust/ (check 12).
 
 ## 10. Fresh install
 
@@ -559,7 +560,8 @@ Start the server on the copy of the tables, then open http://localhost:18080 in 
 
 | Step | Expected |
 | --- | --- |
-| Open the page | The tables on the left; EMPLOY (or the last table you used) with its rows |
+| Open the page | The tables on the left; EMPLOY (or the last table you used) with its rows. The top bar and the browser tab say **myTinySQL-rust**, "written in Rust" |
+| Click **Code documentation** (top right) | A new tab opens https://ricard1406.github.io/myTinySql-rust/: the Rust code documentation ("Crate mytinysql"), not the C++ Doxygen pages |
 | Click **COMPANY** on the left | The companies (8, plus the 20 test firms if you ran check 6), each row with **Edit** and **Delete** |
 | Click **SYSTEM_TABLE** | Its rows, with no **+ New row** and no Edit/Delete: the catalogue is read-only |
 | Click **EMPLOY**; in **Search in** keep NOME, type `fran`, click **Search** | The rows whose NOME contains "fran" (Francesco, Franco) |
@@ -578,23 +580,32 @@ Start the server on the copy of the tables, then open http://localhost:18080 in 
 Above the rows, the page always shows the SQL the last action sent and the server's answer: reading it is
 part of the check. Stop the server with Ctrl+C.
 
-The page in `web/` is the same as in the C++ version, so this checklist is too. Its **Code documentation**
-link at the top still opens the C++ version's documentation.
+The page in `web/` is the C++ version's page with its own name and its own **Code documentation** link
+(both in `web/index.html`); everything else is the same, and so is the rest of this checklist.
 
 ## 12. On GitHub
 
-After each push to `main`, and on every pull request, GitHub runs the workflow in `.github/workflows/ci.yml`:
-it builds the program, runs `cargo test`, `cargo clippy`, `cargo fmt --check` and `cargo doc`, and fails
-on any warning. In the repository's **Actions** tab, the latest "CI" run must have a green check.
-From a terminal, without logging in (the repository is public):
+GitHub runs two workflows:
+
+- **CI** (`.github/workflows/ci.yml`), after each push to `main` and on every pull request: it builds the
+  program, runs `cargo test`, `cargo clippy`, `cargo fmt --check` and `cargo doc`, and fails on any warning.
+- **Code documentation** (`.github/workflows/docs.yml`), after each push to `main`: it builds the
+  documentation with `cargo doc` and publishes it at https://ricard1406.github.io/myTinySql-rust/, the
+  page the **Code documentation** link of the browser page opens.
+
+In the repository's **Actions** tab, the latest run of each must have a green check. From a terminal,
+without logging in (the repository is public):
 
 ```bash
 curl -s "https://api.github.com/repos/ricard1406/myTinySql-rust/actions/workflows/ci.yml/runs?per_page=1" | grep -m2 -E '"(status|conclusion)"'
+curl -s "https://api.github.com/repos/ricard1406/myTinySql-rust/actions/workflows/docs.yml/runs?per_page=1" | grep -m2 -E '"(status|conclusion)"'
 ```
 
-**You should see** (output, don't type it):
+**You should see** (output, don't type it) the same two lines twice:
 
 ```text
+      "status": "completed",
+      "conclusion": "success",
       "status": "completed",
       "conclusion": "success",
 ```
@@ -604,8 +615,8 @@ curl -s "https://api.github.com/repos/ricard1406/myTinySql-rust/actions/workflow
 - GitHub answers 60 such requests an hour from one computer; above that the answer says
   `API rate limit exceeded`.
 
-(The C++ version's check 12 looks at the run that publishes its Doxygen pages. This one checks the code
-itself, on a clean machine with the latest Rust.)
+(The C++ version's check 12 looks at the run that publishes its Doxygen pages. This one also checks the
+code itself, on a clean machine with the latest Rust.)
 
 ## 13. Same as C++
 
@@ -675,5 +686,6 @@ rm -rf "$TEST_DIR"
 | In the C++ version, `CREATE TABLE` with huge widths wrapped the row length around to 3, then failed with a wrong message | Comparing both versions on edge cases (now check 13) | C++ [pull request #1](https://github.com/ricard1406/myTinySql/pull/1): the sum stops at the largest number |
 | `tests/check_all.sh` reported 2 failed tests for 1, because it counted every line containing `FAILED` | Testing the script with a broken `.expected` file | It counts only the `test ... FAILED` lines |
 | INSTALLATION.md showed an error message for a too-old Rust that Cargo does not actually print | Running the command before writing it down | The message is now copied from a real run |
+| The browser page still said "myTinySQL", and its **Code documentation** link opened the C++ Doxygen pages | A user checking a fresh install on Ubuntu 26 (now in check 11) | The page says myTinySQL-rust; the Rust documentation is published on GitHub Pages and the link opens it |
 
 As in the C++ version: test scripts and guides are code too, and need testing as well.
