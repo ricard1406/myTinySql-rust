@@ -6,6 +6,8 @@ It is a port of the C++20 version, [github.com/ricard1406/myTinySql](https://git
 same statements, same files, same browser page, same output. Every C++ file has a Rust module with the same job,
 so the two can be read side by side. **[docs/cpp-vs-rust.md](docs/cpp-vs-rust.md)** compares them, idea by idea.
 
+**Installation:** requirements, installing Rust, build and first run are in [INSTALLATION.md](INSTALLATION.md).
+
 **License:** [MIT](LICENSE). The software is provided "as is", without any warranty, and the author accepts no
 responsibility for its use: see the last section, "License and responsibility".
 
@@ -17,7 +19,9 @@ responsibility for its use: see the last section, "License and responsibility".
 
 ## Install Rust
 
-The build needs Rust 1.88 or newer (edition 2024). The official installer puts it in `~/.cargo`, with no `sudo`:
+The build needs Rust 1.88 or newer (edition 2024) and a C linker (`sudo apt install build-essential` on
+Ubuntu). The official installer puts Rust in `~/.cargo`, with no `sudo`; [INSTALLATION.md](INSTALLATION.md)
+has every step:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -70,6 +74,7 @@ The full description of the statements, the file formats and the web page is in 
 | `examples/` | Sample scripts (`insert.sql` adds rows to `data/`) |
 | `web/` | The browser page, the same files as in the C++ version |
 | `docs/cpp-vs-rust.md` | The comparison of the two versions |
+| `INSTALLATION.md` | Requirements, installing Rust, build, run, troubleshooting |
 | `Cargo.toml`, `rustfmt.toml` | Build settings; formatting (`cargo fmt`) |
 
 | C++ | Rust |
