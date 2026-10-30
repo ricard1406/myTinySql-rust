@@ -11,7 +11,7 @@
 # (check 7), never changed. Check 11 needs a person and a browser, so it is only listed.
 # Check 13 compares with the C++ version: it needs the C++ program, in ../myTinySQL/myTinySql or
 # wherever MYTINYSQL_CPP says; without it, the check is skipped.
-# It takes about a minute, mostly for the builds of checks 1, 8 and 10.
+# It takes about half a minute, mostly for the builds of checks 1, 8 and 10.
 set -u
 
 cd "$(dirname "$0")/.."
@@ -303,7 +303,7 @@ check_13() {  # Same as C++: both programs print the same and write the same fil
 
 # ---------------------------------------------------------------- Main
 
-echo "${bold}myTinySQL in Rust: running the checks of TESTING.md${plain} (about a minute)"
+echo "${bold}myTinySQL in Rust: running the checks of TESTING.md${plain} (about half a minute)"
 echo
 
 # The tools the checks need, as in "What you need" of TESTING.md

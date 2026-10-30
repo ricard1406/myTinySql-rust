@@ -28,7 +28,7 @@ tests/check_all.sh
 **You should see** (output, don't type it) one line per check, then the verdict:
 
 ```text
-myTinySQL in Rust: running the checks of TESTING.md (about a minute)
+myTinySQL in Rust: running the checks of TESTING.md (about half a minute)
 
   1  Clean build              ok
   2  Automated tests          ok   9 unit tests, 8 test scripts
@@ -41,7 +41,7 @@ myTinySQL in Rust: running the checks of TESTING.md (about a minute)
   9  Documentation            ok
  10  Fresh install            ok   the version on GitHub, 8 test scripts
  11  By hand, in a browser    --   by a person: see TESTING.md, check 11
- 12  On GitHub                ok   CI of commit 1a2b3c4
+ 12  On GitHub                ok   CI of commit 99eba94
  13  Same as C++              ok   12 scripts, against ../myTinySQL/myTinySql
 
 ALL DONE - IT WORKS   (12 checks passed)
