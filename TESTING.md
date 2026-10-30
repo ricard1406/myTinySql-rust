@@ -41,7 +41,7 @@ myTinySQL in Rust: running the checks of TESTING.md (about half a minute)
   9  Documentation            ok
  10  Fresh install            ok   the version on GitHub, 8 test scripts
  11  By hand, in a browser    --   by a person: see TESTING.md, check 11
- 12  On GitHub                ok   CI of commit 99eba94
+ 12  On GitHub                ok   ci of 42b23cc, docs of 42b23cc
  13  Same as C++              ok   12 scripts, against ../myTinySQL/myTinySql
 
 ALL DONE - IT WORKS   (12 checks passed)
