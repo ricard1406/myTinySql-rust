@@ -21,6 +21,8 @@
 
 // Like Doxygen's "undocumented" warnings in the C++ version: every public item needs a `///` comment.
 #![warn(missing_docs)]
+// No `unsafe` blocks anywhere: the compiler refuses them, so memory safety is checked at compile time.
+#![forbid(unsafe_code)]
 
 pub mod catalog;
 pub mod output;

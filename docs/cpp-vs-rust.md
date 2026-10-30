@@ -524,7 +524,7 @@ runs the tests, to catch out-of-bounds reads, use-after-free and similar bugs *o
 In Rust, safe code cannot have those bugs at all: references are checked by the borrow checker,
 every `vec[i]` checks its bounds (an out-of-range index stops the program with a panic instead of
 reading other memory), and there is no null pointer. The only way around it is an `unsafe` block, and
-this project has none. A sanitizer run is still useful for `unsafe` code; here there is nothing for it to find.
+this project has none: `#![forbid(unsafe_code)]` at the top of `lib.rs` and `main.rs` makes the compiler refuse one. A sanitizer run is still useful for `unsafe` code; here there is nothing for it to find.
 
 ## Where the two versions differ (on purpose)
 

@@ -1,0 +1,45 @@
+# Builds and tests the project on GitHub after every push to main and on every pull request:
+# the build, the tests, the linter, the formatting and the documentation must all be clean.
+# TESTING.md, check 12, reads the result of the latest run.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:  # also allows a manual run from the Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15  # a normal run takes 1-2 minutes; stop a stuck one instead of waiting 6 hours
+    env:
+      RUSTFLAGS: -D warnings      # a compiler warning fails the run
+      RUSTDOCFLAGS: -D warnings   # and so does a documentation warning
+    steps:
+      - uses: actions/checkout@v4
+
+      # GitHub's machines come with rustup; this makes sure Rust is the latest stable version.
+      - name: Install Rust
+        run: rustup update stable && rustup default stable && rustup component add clippy rustfmt
+
+      - name: Show the Rust version
+        run: cargo --version
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Tests (unit tests and the 8 test scripts)
+        run: cargo test
+
+      - name: Linter
+        run: cargo clippy --all-targets
+
+      - name: Formatting
+        run: cargo fmt --check
+
+      - name: Documentation
+        run: cargo doc --no-deps

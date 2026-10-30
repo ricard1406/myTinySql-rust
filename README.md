@@ -8,6 +8,9 @@ so the two can be read side by side. **[docs/cpp-vs-rust.md](docs/cpp-vs-rust.md
 
 **Installation:** requirements, installing Rust, build and first run are in [INSTALLATION.md](INSTALLATION.md).
 
+**Testing:** how to check, step by step, that everything works is in [TESTING.md](TESTING.md);
+`tests/check_all.sh` runs all those checks at once.
+
 **License:** [MIT](LICENSE). The software is provided "as is", without any warranty, and the author accepts no
 responsibility for its use: see the last section, "License and responsibility".
 
@@ -75,6 +78,8 @@ The full description of the statements, the file formats and the web page is in 
 | `web/` | The browser page, the same files as in the C++ version |
 | `docs/cpp-vs-rust.md` | The comparison of the two versions |
 | `INSTALLATION.md` | Requirements, installing Rust, build, run, troubleshooting |
+| `TESTING.md`, `tests/check_all.sh` | The 13 checks, and the script that runs them |
+| `.github/workflows/ci.yml` | Builds and tests the code on GitHub after every push |
 | `Cargo.toml`, `rustfmt.toml` | Build settings; formatting (`cargo fmt`) |
 
 | C++ | Rust |
@@ -102,6 +107,10 @@ UPDATE_EXPECTED=1 cargo test --test golden
 then check the diff of the `.expected` files.
 
 `cargo clippy` (Rust's linter) and `cargo fmt --check` should both report nothing.
+
+[TESTING.md](TESTING.md) has 13 checks in all (the server, parallel writes, memory safety, a fresh copy from
+GitHub, the same output as the C++ version...), each with its command and expected result.
+`tests/check_all.sh` runs them and ends with `ALL DONE - IT WORKS`, or `OOOPS - SOMETHING IS WRONG`.
 
 ## License and responsibility
 

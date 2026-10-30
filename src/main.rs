@@ -6,6 +6,9 @@
 //! ./myTinySql --http                          browser page on http://localhost:8080
 //! ```
 
+// As in lib.rs: the compiler refuses any `unsafe` block.
+#![forbid(unsafe_code)]
+
 use std::fs::File;
 use std::io::{self, BufRead, IsTerminal, Read, Write};
 use std::path::PathBuf;
