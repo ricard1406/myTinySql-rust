@@ -20,7 +20,7 @@ jobs:
       RUSTFLAGS: -D warnings      # a compiler warning fails the run
       RUSTDOCFLAGS: -D warnings   # and so does a documentation warning
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # GitHub's machines come with rustup; this makes sure Rust is the latest stable version.
       - name: Install Rust
