@@ -1,0 +1,5 @@
+# Build output: recreated by `cargo build`
+/target/
+
+# Left behind if UPDATE or DELETE is interrupted half-way
+*.tmp

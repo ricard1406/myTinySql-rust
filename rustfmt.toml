@@ -1,0 +1,3 @@
+# Lines up to 120 characters, as in the C++ version.
+max_width = 120
+use_small_heuristics = "Max"

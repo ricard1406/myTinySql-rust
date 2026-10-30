@@ -1,0 +1,22 @@
+# myTinySQL in Rust - build with `cargo build --release`, run the tests with `cargo test`,
+# make the HTML docs with `cargo doc --no-deps --open`.
+
+[package]
+name = "mytinysql"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "A tiny SQL interpreter over fixed-width text files, the Rust version of myTinySQL"
+license = "MIT"
+# Only the standard library, like the C++ version: no crates to download.
+publish = false
+
+# The library holds the interpreter; the binary is the command line around it.
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "myTinySql"
+path = "src/main.rs"
+
+[dependencies]
